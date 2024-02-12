@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compteur</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+        }
+
+    #counter {
+        font-size: 24px;
+        margin-bottom: 20px;
+        }
+    #startCounter{
+        color: green;
+    }
+
+    #resetCounter{
+        color: red;
+    }
+
+    #stopCounter{
+        color: orange;
+    }
+    </style>
+
+</head>
+<body>
+    <h2>Compteur</h2>
+
+    <div id="counter">0</div>
+    <button id="startCounter" onclick="startCounter()">Démarrer le compteur</button>
+    <button id="stopCounter" onclick="stopCounter()">Arrêter le compteur</button>
+    <button id="resetCounter" onclick="resetCounter()">Remettre à zéro</button>
+
+    <script >
+
+let counterValue = 0;
+let intervalId;
+
+
+function startCounter() 
+{ // Fonction pour démarrer le compteur
+        if (!intervalId) {// Vérifier si le compteur est déjà en cours
+        intervalId = setInterval(updateCounter, 1000);  // Démarrer le compteur avec une mise à jour toutes les 1000 millisecondes (1 seconde)
+    }
+}
+
+function updateCounter() { // Fonction pour mettre à jour le compteur
+    counterValue++;
+    displayCounter();
+}
+
+function resetCounter() { // Fonction pour remettre à zéro le compteur
+    counterValue = 0;
+    displayCounter();
+}
+
+function displayCounter() { // Fonction pour afficher la valeur actuelle du compteur sur la page
+    const counterElement = document.getElementById('counter');
+    counterElement.textContent = counterValue;
+}
+
+function stopCounter() {
+    clearInterval(intervalId);
+    intervalId = null;
+}
+
+    </script>
+</body>
+</html>
+

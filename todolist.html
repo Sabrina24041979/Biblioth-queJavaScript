@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Ma Liste de tâches</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+  <style>
+    table button, .paper-btn, [type="button"] { 
+      float: right;
+      margin-left: 5px;  
+    }
+  </style>
+</head>
+<body>
+  <br>
+  <div class="paper container">
+    <h1>Ma liste de tâches</h1>
+    <div class="form-group">
+      <input type="text" placeholder="Nouvelle tâche" aria-label="Texte de la tâche">
+    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>Laver la voiture</td>
+          <td>
+            <button class="btn-small btn-danger">Supprimer</button>
+            <button class="btn-small marquer">Marquer</button>              
+          </td>
+        </tr>
+        <tr>
+          <td><del>Sortir la poubelle</del></td>
+          <td>
+            <button class="btn-small btn-danger">Supprimer</button>
+            <button class="btn-small demarquer">Démarquer</button>     
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <script>
+    // Boutons
+const buttonDel = '<button class="btn-small btn-danger">Supprimer</button>'
+const buttonsComplete = `
+  ${buttonDel}
+  <button class="btn-small demarquer">Démarquer</button>    
+` 
+const buttonsNoComplete = `
+  ${buttonDel}
+  <button class="btn-small marquer">Marquer</button> 
+`
+// Ajoute une ligne de tableau
+const createLine = (text, complete) => {  
+  // Création TR
+  const tr = document.createElement('tr')  
+  // Création premier TD avec le texte 
+  let td = document.createElement('td')
+  td.innerHTML = complete ? `<del>${text}</del>` : text
+  tr.appendChild(td)
+  // Création second TD avec les boutons
+  td = document.createElement('td')
+  td.innerHTML = complete ? buttonsComplete : buttonsNoComplete
+  tr.appendChild(td) 
+  // Retour du TR
+  return tr
+}
+
+// Sauvegarde en local storage
+const setStorage = () => localStorage.setItem('TASKS', JSON.stringify(Array.from(tasks)))
+
+// Ajout d'une tâche
+document.querySelector('input').addEventListener('keydown', e => {
+  if(e.key === 'Enter')  {
+    // On ajoute la tâche dans le dictionnaire
+    tasks.set(e.target.value, false)  
+    // On ajoute la ligne dans le tableau
+    document.querySelector('tbody').appendChild(createLine(e.target.value, false))
+    // Actualisation du local storage
+    setStorage() 
+  }
+})
+
+// Click dans la liste des tâches
+document.querySelector('table').addEventListener('click', e => {
+  // On a cliqué sur un bouton
+  if(e.target.matches('button')) {
+    // Suppression d'une tâche
+    if(e.target.matches('.btn-danger')) {
+      // Suppression dans le dictionnaire
+      tasks.delete(e.target.parentNode.previousSibling.textContent)
+      // Suppression dans le DOM
+      e.target.parentNode.parentNode.remove()
+    // Marquage d'une tâche
+    } else {
+      //toggleTask(e.target.matches('.marquer'), e.target)
+    }
+    // Actualisation du local storage
+    setStorage() 
+  }
+})
+  </script>
+</body>
+</html>

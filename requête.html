@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery</title>
+ 
+  <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.article-container, .comments-container {
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.comment {
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+
+</style>
+
+</head>
+<body>
+
+    <div class="article-container" id="article-container">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores perferendis perspiciatis, officiis dicta eum facere quia amet consectetur excepturi rem, quo necessitatibus veritatis odio! Iste neque aspernatur accusantium quisquam ut.</p>
+    </div>
+
+    <div class="comments-container" id="comments-container">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ipsam praesentium quidem! Soluta, animi? Fugit nisi commodi nihil a odio sit, esse sint error voluptatem nemo ducimus, temporibus ipsa dignissimos?</p>
+    </div>
+
+    <script>
+
+    // Fonction pour effectuer une requête AJAX - cours Nicolas
+function fetchData(url, callback) 
+{
+    const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () 
+    {
+    if (xhr.readyState === XMLHttpRequest.DONE) 
+    {
+        if (xhr.status === 200) 
+        {
+        const data = JSON.parse(xhr.responseText);
+        callback(data);
+        } else 
+        {
+        console.error('Erreur :', xhr.status);
+    }
+    }
+    };
+        xhr.open('GET', url, true);
+        xhr.send();
+}
+
+function displayArticle(article) { // Fonction pour afficher les informations de l'article (lorem ipsum)
+    const articleContainer = document.getElementById('article-container');
+    articleContainer.innerHTML = `
+    <h2>${article.title}</h2>
+    <p>${article.body}</p>`;
+}
+
+
+function displayComments(comments) { // Fonction pour afficher les commentaires
+    const commentsContainer = document.getElementById('comments-container');
+    commentsContainer.innerHTML = '<h3>Commentaires</h3>';
+
+
+  for (let i = 0; i < Math.min(3, comments.length); i++) {   // Afficher seulement les 3 premiers commentaires
+    const comment = comments[i];
+    const commentElement = document.createElement('div');
+    commentElement.classList.add('comment');
+    commentElement.innerHTML = `<p><strong>${comment.name}</strong></p><p>${comment.body}</p>`;
+    commentsContainer.appendChild(commentElement);
+    }
+}
+
+
+fetchData('https://jsonplaceholder.typicode.com/posts/10', function (article) { // Requête pour récupérer l'article
+    displayArticle(article);
+
+  fetchData('https://jsonplaceholder.typicode.com/comments?postId=10', function (comments) {  // Requête pour récupérer les commentaires de l'article
+    displayComments(comments);
+    });
+});
+
+/*{
+    "userId": 1,
+    "id": 10,
+    "title": "optio molestias id quia eum",
+    "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
+},*/
+
+</script>
+</body>
+</html>
+

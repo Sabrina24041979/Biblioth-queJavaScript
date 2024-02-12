@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foire aux questions</title>
+ 
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.accordeon {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.question {
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+h2 {
+    background-color: rgb(224, 218, 218);
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.reponse {
+    display: none;
+    padding: 10px;
+}
+</style>
+
+</head>
+<body>
+
+    
+<div class="accordeon">
+    <div class="question">
+        <h2 onclick="questions(1)">A quoi sert Javascript?</h2>
+        <div class="reponse"> JavaScript permet d'ajouter de l'interactivité aux pages web, rendant l'expérience utilisateur plus dynamique et réactive.</div>
+    </div>
+
+    <div class="question">
+        <h2 onclick="questions(2)">Qu'est-ce qu'ECMAScript?</h2>
+        <div class="reponse">ECMAScript est un ensemble de normes concernant les langages de programmation de type script, standardisées par Ecma International dans le cadre de la spécification ECMA-262. Il s'agit d'un standard implémenté dans des langages comme JavaScript ou ActionScript.</div>
+    </div>
+
+    <div class="question">
+        <h2 onclick="questions(3)">Qu'est-ce que le DOM?</h2>
+        <div class="reponse">Le Document Object Model (DOM) est une interface de programmation permettant de structurer des documents HTML et XML. Il offre aux programmeurs un accès aux composants d'un projet Web pour faciliter l'édition et la manipulation du contenu, des attributs et des styles.</div>
+    </div>
+
+    <div class="question">
+        <h2 onclick="questions(4)">Qu'est-ce qu'une fonction en javascript?</h2>
+        <div class="reponse">Réponse à la question 4: Les fonctions sont des procédures JavaScript, un ensemble d'instructions effectuant une tâche ou calculant une valeur. Il est nécessaire de les définir avant de les utiliser dans la portée souhaitée.</div>
+    </div>
+
+    <div class="question">
+        <h2 onclick="questions(5)">Qu'est-ce qu'un évènement en javascript?</h2>
+        <div class="reponse">Les événements sont des actions ou occurrences dans le système que vous programmez. Ils vous informent afin que vous puissiez y répondre. Par exemple, le clic sur un bouton peut déclencher une action comme l'affichage d'une boîte d'information.</div>
+    </div>
+</div>
+
+<script>
+
+function questions(questionNumber) // Création de la fonction qui va chercher les questions définies ci dessus.
+{
+    const answer = document.querySelector(`.question:nth-child(${questionNumber}) .reponse`);
+    answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+}
+
+</script>
+</body>
+</html>

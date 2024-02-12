@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrandir et réduire un texte</title>
+</head>
+<body>
+
+    
+<h1 id="title">Hello World !</h1>
+    <button onclick="increaseTextSize()">Agrandir le texte</button>
+    <button onclick="decreaseTextSize()">Réduire le texte</button>
+
+
+<script>
+
+const titleElement = document.getElementById('title'); // On récupère le titre
+
+// Partie 1: On crèe une fonction pour diminuer la taille de la police.
+function increaseTextSize() 
+{ // On ajoute une fonction pour augmenter la taille du texte
+    let currentSize = parseInt(window.getComputedStyle(titleElement).fontSize); // On récupère la taille actuelle de la police
+    currentSize += 2; // // On augmente la taille de la police de 2px en appelant la variable "currentSize" avec l'opérateur d'affectation += 
+
+  // On ajoute une condition avec "if" pour limiter la taille à 40px
+    if (currentSize <= 40) 
+    {
+    titleElement.style.fontSize = `${currentSize}px`;
+    }
+}
+
+//Partie 2 : On fait le même exercice pour diminuer la taille du texte
+function decreaseTextSize() 
+{ // On crée une fonction pour diminuer la taille du texte
+    let currentSize = parseInt(window.getComputedStyle(titleElement).fontSize);   // On récupère la taille actuelle de la police
+    currentSize -= 2; // Diminuer la taille de la police de 2px avec l'opérateur d'affectation -= 
+
+    if (currentSize >= 10) 
+    { // On ajoute une condition avec "if" pour limiter la taille à 10px
+    titleElement.style.fontSize = `${currentSize}px`;
+    }
+}
+</script>
+
+</body>
+</html>

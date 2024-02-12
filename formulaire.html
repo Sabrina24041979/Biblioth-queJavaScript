@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Saisie en JavaScript</title>
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <h2 id="titreFormulaire">Formulaire</h2>
+
+    <form action="/" method="post" id="signup-form">
+
+    <label for="nomComplet">Nom et Prénom : </label>
+    <input type="text">
+    <br>
+    <br>
+
+    <label for="submit"></label>
+    <input type="submit" value="Envoyer le formulaire" />
+
+</form>
+
+    <script>
+
+let form = document.getElementById('signup-form');
+
+function requireValue(input) { //Fonction permettant de vérifier que le champ de saisie n’est pas vide lors de l’envoi
+    return !(input.value.trim() === '');
+}
+
+form.addEventListener('submit', (event) => { //Écouteur d’événements pour effectuer la validation lorsque l’utilisateur clique sur le bouton d’envoi
+    requiredFields.forEach((input) => {
+        valid = valid|requireValue(input.input);
+    });
+    if (!valid) {
+        event.preventDefault();
+    }
+});
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de tâches</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        #task-container {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .task-text {
+            flex-grow: 1;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .task-text.completed {
+            text-decoration: line-through;
+        }
+        
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+            </style>
+</head>
+<body>
+
+<div id="task-container">
+    <h2>Liste des Tâches</h2>
+    <input type="text" id="task-input" placeholder="Ajouter une nouvelle tâche">
+    <button id="add-task-button">Ajouter</button>
+    <ul id="task-list"></ul>
+</div>
+
+<script>
+    (function() { //Récupération des éléments du body
+        const input = document.getElementById('task-input');
+        const addButton = document.getElementById('add-task-button');
+        const taskList = document.getElementById('task-list');
+
+        addButton.addEventListener('click', addTask); //Ajout écouteur pour l'ajouter des taches
+
+        function addTask() {
+            const taskText = input.value.trim();
+
+            if (taskText !== '') { //CRéation de nouveaux éléments li, span et button
+                const li = document.createElement('li');
+                const taskTextSpan = document.createElement('span');
+                const deleteButton = document.createElement('button');
+
+                taskTextSpan.textContent = taskText; // config
+                taskTextSpan.classList.add('task-text');
+                taskTextSpan.addEventListener('click', toggleTask);
+
+                deleteButton.textContent = 'Supprimer';
+                deleteButton.classList.add('delete-button');
+                deleteButton.addEventListener('click', deleteTask);
+
+                li.appendChild(taskTextSpan);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li);
+
+                input.value = '';
+            }
+        }
+
+        function toggleTask(event) {
+            const taskTextSpan = event.target;
+            taskTextSpan.classList.toggle('completed');
+        }
+
+        function deleteTask(event) {
+            const li = event.target.closest('li');
+            li.remove();
+        }
+    })();
+
+</script>
+
+</body>
+</html>
+
+
+
+
